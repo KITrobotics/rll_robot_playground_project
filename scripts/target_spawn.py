@@ -23,11 +23,12 @@ import rospy
 def update_spawn_location():
 
     # set target positions
-    rospy.set_param('target_1_spawn_location', {'x': 0.5, 'y': -0.3, 'z': 0.2})
+    rospy.set_param('target_1_spawn_location', {'x': 0.4, 'y': -0.3, 'z': 0.3})
     rospy.set_param('target_2_spawn_location', {'x': 0.3, 'y': 0.3, 'z': 0.4})
 
     # start execution
     rospy.set_param('target_pos_set', True)
-    
+
 if __name__ == '__main__':
+    rospy.init_node('target_spawn')
     update_spawn_location()
