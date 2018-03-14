@@ -2,6 +2,6 @@
 <launch>
   <arg name="robot" default="iiwa_2" />
 
-  <node ns="$(arg robot)" name="target_spawn" pkg="moveit_testing_sender" type="target_spawn.py" output="screen"/>
+  <node ns="$(arg robot)" name="tower_hanoi" pkg="moveit_testing_sender" type="tower_hanoi.py" output="screen"/>
 
 </launch>
