@@ -21,7 +21,7 @@
 # 1->3, 1->2, 3->2, 1->3, 2->1, 2->3, 1->3
 
 import rospy
-from rll_moveit_testing.srv import *
+from moveit_testing_sender.srv import *
 from geometry_msgs.msg import Pose
 
 def play_tower_of_hanoi():
