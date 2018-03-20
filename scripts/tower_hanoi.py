@@ -31,7 +31,10 @@ def hanoi(n, source, helper, target):
 
         # move disk from source peg to target peg
         if source["disks"]:
-            move_disk(source, target)
+            status = move_disk(source, target)
+            if (status == False):
+                rospy.logerr("error, exiting...")
+                quit()
 
         # move tower of size n-1 from helper to target
         hanoi(n - 1, helper, source, target)
@@ -53,6 +56,10 @@ def move_disk(start, dest):
 
     pick_place = rospy.ServiceProxy('pick_place', PickPlace)
     resp = pick_place(pose_above, pose_grip, True)
+    if resp.success == False:
+        rospy.logerr("picking up disk failed")
+        return False
+
     rospy.loginfo("pick up job finished")
     start["disks"] -= 1
 
@@ -62,6 +69,10 @@ def move_disk(start, dest):
     pose_grip.position.z = heights[dest["disks"]+1]
     pose_grip.position.y = stack_pos[dest["pos"]]
     resp = pick_place(pose_above, pose_grip, False)
+    if resp.success == False:
+        rospy.logerr("placing disk failed")
+        return False
+
     rospy.loginfo("place job finished")
     dest["disks"] += 1
 
@@ -81,6 +92,10 @@ def cleanup():
 
     pick_place = rospy.ServiceProxy('pick_place', PickPlace)
     resp = pick_place(pose_above, pose_grip, True)
+    if resp.success == False:
+        rospy.logerr("moving tower failed")
+        return False
+
     rospy.loginfo("pick up job finished")
 
     # place disk
@@ -88,12 +103,20 @@ def cleanup():
     pose_grip.position.y = stack_pos[source["pos"]]
     pick_place = rospy.ServiceProxy('pick_place', PickPlace)
     resp = pick_place(pose_above, pose_grip, False)
+    if resp.success == False:
+        rospy.logerr("moving tower failed")
+        return False
+
     rospy.loginfo("place job finished")
 
     # move a little higher before homing
     pose_above.position.z = 0.1
-    pose_grip.position.z = 0.1
-    resp = pick_place(pose_above, pose_grip, False)
+    move_lin = rospy.ServiceProxy('move_lin', MoveLin)
+    resp = move_lin(pose_above)
+    if resp.success == False:
+        rospy.logerr("moving in final pos failed")
+        return False
+
     rospy.loginfo("ready to home")
 
 
