@@ -24,7 +24,7 @@ from moveit_testing_sender.srv import *
 def greetings():
     joint_1 = 0.873
     joint_2 = 1.832
-    joint_3 = -0.523
+    joint_3 = -0.4
     joint_4 = 2.01
     joint_5 = -1.396
     joint_6 = 0.0
@@ -36,7 +36,7 @@ def greetings():
         rospy.logerr("moving to first joint pos failed")
         return False
 
-    joint_3 = 0.523
+    joint_3 = 0.4
     resp = move_joints(joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, joint_7)
     if resp.success == False:
         rospy.logerr("moving to second joint pos failed")
