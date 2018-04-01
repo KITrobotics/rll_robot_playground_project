@@ -19,7 +19,7 @@
 #
 
 import rospy
-from moveit_testing_sender.srv import *
+from rll_msgs.srv import *
 
 def greetings():
     joint_1 = 0.6
