@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="robot" default="iiwa_2" />
+  <arg name="robot" default="iiwa" />
 
   <node ns="$(arg robot)" name="greetings" pkg="greetings" type="greetings.py" output="screen"/>
 
