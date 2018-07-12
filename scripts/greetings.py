@@ -19,7 +19,9 @@
 #
 
 import rospy
+import actionlib
 from rll_msgs.srv import *
+from rll_msgs.msg import *
 
 def greetings():
     joint_1 = 0.6
@@ -43,12 +45,26 @@ def greetings():
         rospy.logerr("moving to second joint pos failed")
         return False
 
-    
+
     rospy.loginfo("one greetings movement finished")
+
+def greet_full():
+    for x in range(0, 5):
+        greetings()
+
+class MoveClient:
+    def __init__(self):
+        self.server = actionlib.SimpleActionServer("move_client", DefaultMoveIfaceAction, self.execute, False)
+        self.server.start()
+
+    def execute(self, req):
+        greet_full()
+        self.server.set_succeeded()
 
 
 if __name__ == '__main__':
     rospy.init_node('tower_hanoi')
 
-for x in range(0, 5):
-    greetings()
+    server = MoveClient()
+
+    rospy.spin()
