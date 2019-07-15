@@ -2,6 +2,6 @@
 <launch>
   <arg name="robot" default="iiwa" />
 
-  <node ns="$(arg robot)" name="greetings" pkg="greetings" type="greetings.py" output="screen"/>
+  <node ns="$(arg robot)" name="greetings" pkg="rll_robot_playground_project" type="greetings.py" output="screen"/>
 
 </launch>

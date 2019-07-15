@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rll_cell">
+
+  <xacro:include filename="$(find rll_description)/urdf/rll_cell.xacro"/>
+
+  <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+  <xacro:arg name="robot_name" default="iiwa"/>
+
+  <xacro:rll_cell hardware_interface="$(arg hardware_interface)" robot_name="$(arg robot_name)"/>
+
+
+  <!-- This ensures that the robot cannot move close to the table -->
+
+  <joint name="table_buffer" type="fixed">
+    <parent link="world" />
+    <child link="table_buffer" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  <link name="table_buffer">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0.09" rpy="0 0 0"/>
+      <geometry>
+        <box size="1.2 1.6 0.18"/>
+      </geometry>
+      <material name="transparent" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.09" rpy="0 0 0"/>
+      <geometry>
+        <box size="1.2 1.6 0.18"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+</robot>

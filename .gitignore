@@ -66,6 +66,5 @@ CVS/*
 *.kdev4
 *.project
 *.cproject
-/config
 *.kdev_include_paths
 *.orig
