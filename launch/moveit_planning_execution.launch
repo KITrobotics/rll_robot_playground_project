@@ -10,6 +10,7 @@
     <arg name="description_file" value="$(find rll_robot_playground_project)/urdf/playground_env.urdf.xacro" />
     <arg name="robot_name" value="$(arg robot_name)" />
     <arg name="headless" value="$(arg headless)" />
+    <arg name="rviz_config" value="$(find rll_robot_playground_project)/launch/moveit.rviz" />
     <arg name="use_sim" value="$(arg use_sim)" />
     <arg name="gazebo_port" value="$(arg gazebo_port)" />
     <arg name="semantic_description_file" value="$(find rll_robot_playground_project)/config/playground_cell.srdf.xacro" />
