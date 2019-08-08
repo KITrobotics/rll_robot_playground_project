@@ -20,8 +20,9 @@
 
 import rospy
 import actionlib
-from rll_msgs.srv import *
-from rll_msgs.msg import *
+from rll_msgs.srv import MoveJoints
+from rll_msgs.msg import DefaultMoveIfaceAction
+
 
 def greetings():
     joint_1 = 0.6
@@ -33,28 +34,33 @@ def greetings():
     joint_7 = 1.4835
 
     move_joints = rospy.ServiceProxy('move_joints', MoveJoints)
-    resp = move_joints(joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, joint_7)
-    if resp.success == False:
+    resp = move_joints(joint_1, joint_2, joint_3, joint_4,
+                       joint_5, joint_6, joint_7)
+    if not resp.success:
         rospy.logerr("moving to first joint pos failed")
         return False
 
     joint_3 = 0.3
     joint_5 = -0.7
-    resp = move_joints(joint_1, joint_2, joint_3, joint_4, joint_5, joint_6, joint_7)
-    if resp.success == False:
+    resp = move_joints(joint_1, joint_2, joint_3, joint_4,
+                       joint_5, joint_6, joint_7)
+    if not resp.success:
         rospy.logerr("moving to second joint pos failed")
         return False
 
-
     rospy.loginfo("one greetings movement finished")
+
 
 def greet_full():
     for x in range(0, 5):
         greetings()
 
+
 class MoveClient:
     def __init__(self):
-        self.server = actionlib.SimpleActionServer("move_client", DefaultMoveIfaceAction, self.execute, False)
+        self.server = actionlib.SimpleActionServer("move_client",
+                                                   DefaultMoveIfaceAction,
+                                                   self.execute, False)
         self.server.start()
 
     def execute(self, req):
