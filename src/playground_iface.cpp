@@ -2,6 +2,7 @@
  * This file is part of the Robot Learning Lab Robot Playground project
  *
  * Copyright (C) 2019 Wolfgang Wiedmeyer <wolfgang.wiedmeyer@kit.edu>
+ * Copyright (C) 2019 Mark Weinretuer <uieai@student.kit.edu>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,34 +18,66 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <rll_move/move_iface.h>
+#include <rll_move/move_iface_simulation.h>
+#include <rll_move/move_iface_base.h>
 
-int main(int argc, char **argv)
+class PlaygroundMoveIfaceBase : public RLLMoveIfaceBase<>
 {
-	ros::init(argc, argv, "move_iface");
-	ros::NodeHandle nh;
+public:
+  PlaygroundMoveIfaceBase(ros::NodeHandle nh, const std::string& action_name = "move_client")
+    : RLLMoveIfaceBase(nh, action_name)
+  {
+  }
+  void startServicesAndRunNode(ros::NodeHandle& nh) override;
+};
 
-	ros::AsyncSpinner spinner(0);
-	spinner.start();
+void PlaygroundMoveIfaceBase::startServicesAndRunNode(ros::NodeHandle& nh)
+{
+  ros::AsyncSpinner spinner(0);
+  spinner.start();
 
-	RLLMoveIface move_iface;
-	move_iface.reset_to_home();
+  RLLMoveIface* move_iface_ptr = this;
 
-	RLLMoveIface::JobServer server_job(nh, "job_env", boost::bind(&RLLMoveIface::run_job, &move_iface, _1, &server_job), false);
-	server_job.start();
-	RLLMoveIface::JobServer server_idle(nh, "job_idle", boost::bind(&RLLMoveIface::idle, &move_iface, _1, &server_idle), false);
-	server_idle.start();
-	ros::ServiceServer robot_ready = nh.advertiseService("robot_ready", &RLLMoveIface::robot_ready_srv, &move_iface);
-	ros::ServiceServer move_random = nh.advertiseService("move_random", &RLLMoveIface::move_random_srv, &move_iface);
-	ros::ServiceServer move_lin = nh.advertiseService("move_lin", &RLLMoveIface::move_lin_srv, &move_iface);
-	ros::ServiceServer move_ptp = nh.advertiseService("move_ptp", &RLLMoveIface::move_ptp_srv, &move_iface);
-	ros::ServiceServer move_joints = nh.advertiseService("move_joints", &RLLMoveIface::move_joints_srv, &move_iface);
+  resetToHome();
 
-	ROS_INFO("RLL Move Interface started");
+  RLLMoveIface::JobServer server_job(nh, RLLMoveIface::RUN_JOB_SRV_NAME,
+                                     boost::bind(&RLLMoveIface::runJobAction, this, _1, &server_job), false);
+  server_job.start();
+  RLLMoveIface::JobServer server_idle(nh, RLLMoveIface::IDLE_JOB_SRV_NAME,
+                                      boost::bind(&RLLMoveIface::idleAction, this, _1, &server_idle), false);
+  server_idle.start();
 
-	ros::waitForShutdown();
+  ros::ServiceServer robot_ready =
+      nh.advertiseService(RLLMoveIface::ROBOT_READY_SRV_NAME, &RLLMoveIface::robotReadySrv, move_iface_ptr);
+  ros::ServiceServer move_random =
+      nh.advertiseService(RLLMoveIface::MOVE_RANDOM_SRV_NAME, &RLLMoveIface::moveRandomSrv, move_iface_ptr);
+  ros::ServiceServer move_lin =
+      nh.advertiseService(RLLMoveIface::MOVE_LIN_SRV_NAME, &RLLMoveIface::moveLinSrv, move_iface_ptr);
+  ros::ServiceServer move_ptp =
+      nh.advertiseService(RLLMoveIface::MOVE_PTP_SRV_NAME, &RLLMoveIface::movePTPSrv, move_iface_ptr);
+  ros::ServiceServer move_joints =
+      nh.advertiseService(RLLMoveIface::MOVE_JOINTS_SRV_NAME, &RLLMoveIface::moveJointsSrv, move_iface_ptr);
+  ros::ServiceServer get_pose =
+      nh.advertiseService(RLLMoveIface::GET_POSE_SRV_NAME, &RLLMoveIface::getCurrentPoseSrv, move_iface_ptr);
+  ros::ServiceServer get_joint_values = nh.advertiseService(RLLMoveIface::GET_JOINT_VALUES_SRV_NAME,
+                                                            &RLLMoveIface::getCurrentJointValuesSrv, move_iface_ptr);
 
-	return 0;
+  ROS_INFO("RLL Robot Playground Interface started");
+  ros::waitForShutdown();
+}
+
+using PlaygroundIfaceSimulation = RLLCombinedMoveIface<PlaygroundMoveIfaceBase, RLLSimulationMoveIface>;
+
+int main(int argc, char** argv)
+{
+  ros::init(argc, argv, "playground_iface");
+  ros::NodeHandle nh;
+
+  PlaygroundIfaceSimulation iface(nh, "move_client");
+  iface.startServicesAndRunNode(nh);
+  ros::waitForShutdown();
+
+  return 0;
 }
 
 /*
