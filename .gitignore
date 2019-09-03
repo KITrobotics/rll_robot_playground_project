@@ -68,3 +68,7 @@ CVS/*
 *.cproject
 *.kdev_include_paths
 *.orig
+
+.vscode
+.idea
+venv/
