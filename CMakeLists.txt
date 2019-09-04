@@ -23,7 +23,7 @@ catkin_package(
 )
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(playground_iface src/playground_iface.cpp)
+add_executable(playground_iface src/playground_iface.cpp src/playground_iface_node.cpp)
 target_link_libraries(playground_iface ${catkin_LIBRARIES})
 
 add_executable(hello_world src/hello_world.cpp)
