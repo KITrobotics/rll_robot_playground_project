@@ -18,18 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <rll_move/move_iface_simulation.h>
-#include <rll_move/move_iface_base.h>
-
-class PlaygroundMoveIfaceBase : public RLLMoveIfaceBase<>
-{
-public:
-  PlaygroundMoveIfaceBase(ros::NodeHandle nh, const std::string& action_name = "move_client")
-    : RLLMoveIfaceBase(nh, action_name)
-  {
-  }
-  void startServicesAndRunNode(ros::NodeHandle& nh) override;
-};
+#include <rll_robot_playground_project/playground_iface.h>
 
 void PlaygroundMoveIfaceBase::startServicesAndRunNode(ros::NodeHandle& nh)
 {
@@ -65,24 +54,3 @@ void PlaygroundMoveIfaceBase::startServicesAndRunNode(ros::NodeHandle& nh)
   ROS_INFO("RLL Robot Playground Interface started");
   ros::waitForShutdown();
 }
-
-using PlaygroundIfaceSimulation = RLLCombinedMoveIface<PlaygroundMoveIfaceBase, RLLSimulationMoveIface>;
-
-int main(int argc, char** argv)
-{
-  ros::init(argc, argv, "playground_iface");
-  ros::NodeHandle nh;
-
-  PlaygroundIfaceSimulation iface(nh, "move_client");
-  iface.startServicesAndRunNode(nh);
-  ros::waitForShutdown();
-
-  return 0;
-}
-
-/*
- * Local Variables:
- * c-file-style: "linux"
- * indent-tabs-mode: t
- * End:
- */
