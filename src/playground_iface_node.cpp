@@ -21,14 +21,14 @@
 #include <rll_move/move_iface_simulation.h>
 #include <rll_robot_playground_project/playground_iface.h>
 
-using PlaygroundIfaceSimulation = RLLCombinedMoveIface<PlaygroundMoveIfaceBase, RLLSimulationMoveIface>;
+using PlaygroundIface = RLLCombinedMoveIface<PlaygroundMoveIfaceBase, RLLSimulationMoveIface>;
 
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "playground_iface");
   ros::NodeHandle nh;
 
-  PlaygroundIfaceSimulation iface(nh, "move_client");
+  PlaygroundIface iface(nh, "move_client");
   iface.startServicesAndRunNode(nh);
   ros::waitForShutdown();
 
