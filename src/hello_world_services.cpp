@@ -66,7 +66,7 @@ void helloWorld(ros::NodeHandle* const nh)
   ros::Duration(2).sleep();
 
   // move all seven joints into their zero (initial) position
-  // set all joint values of the Request to zero (uneccessary, zero is the default)
+  // set all joint values of the Request to zero (unecessary, zero is the default)
   joints_req.joint_1 = 0;
   joints_req.joint_2 = 0;
   joints_req.joint_3 = 0;
@@ -75,7 +75,7 @@ void helloWorld(ros::NodeHandle* const nh)
   joints_req.joint_6 = 0;
   joints_req.joint_7 = 0;
 
-  ROS_INFO("calling move_joints with all joints values = 0");
+  ROS_INFO("calling move_joints with all joint values = 0");
   move_joints.call(joints_req, joints_resp);
 
   ros::Duration(2).sleep();
@@ -105,13 +105,13 @@ void helloWorld(ros::NodeHandle* const nh)
   }
   else
   {
-    ROS_ERROR("move_joints service call failed (unexpectately)!");
+    ROS_ERROR("move_joints service call failed (unexpectedly)!");
   }
 
   ros::Duration(2).sleep();
 
   // moving by specifying joint angle values is not the most intuitive way
-  // it's easier to specify the pose of the endeffector we'd like to reach
+  // it's easier to specify the pose of the end effector we'd like to reach
   geometry_msgs::Pose goal_pose;
   goal_pose.position.x = .5;
   goal_pose.position.y = .2;
@@ -175,9 +175,9 @@ void helloWorld(ros::NodeHandle* const nh)
 
   ros::Duration(2).sleep();
 
-  // Next up: move the endeffector on a triangular path
+  // Next up: move the end effector on a triangular path
   // while maintaining the same orientation
-  ROS_INFO("Next: move the endeffector on a triangluar path");
+  ROS_INFO("Next: move the end effector on a triangular path");
 
   // orient the z-axis "forward" (along the base x-axis)
   quaternion.setRPY(0, M_PI / 2, 0);

@@ -28,8 +28,7 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
   std::cout << "Hello World" << std::endl;  // avoid cout for logging
   ROS_INFO("Hello ROS");                    // better use ROS_INFO, ROS_ERROR...
 
-  // move to a random pose, the Request object requires no arguments
-  ROS_INFO("calling move_random service");
+  // move to a random pose, this service call requires no arguments
   move_client->moveRandom();
 
   // The robot should now be moving (in RViz)! The delays in this code
@@ -37,16 +36,14 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
   ros::Duration(2).sleep();
 
   // move all seven joints into their zero (initial) position
-  // set all joint values of the Request to zero (uneccessary, zero is the default)
-
-  ROS_INFO("calling move_joints with all joints values = 0");
+  // set all joint values of the Request to zero (unecessary, zero is the default)
+  ROS_INFO("calling move_joints with all joint values = 0");
   move_client->moveJoints(0, 0, 0, 0, 0, 0, 0);
 
   ros::Duration(2).sleep();
 
   // rotate the fourth joint by 90 degrees (pi/2 since we work with radians)
   // the remaining joint values are still equal to zero
-
   ROS_INFO("calling move_joints with joint_4 = pi/2");
   bool success = move_client->moveJoints(0, 0, 0, M_PI / 2, 0, 0, 0);
 
@@ -62,19 +59,15 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
   ROS_INFO("calling move_joints with joint_4 = -pi/2");
   success = move_client->moveJoints(0, 0, 0, -M_PI / 2, 0, 0, 0);
 
-  if (success)
+  if (!success)
   {
-    ROS_INFO("move_joints service call succeeded!");
-  }
-  else
-  {
-    ROS_ERROR("move_joints service call failed (unexpectately)!");
+    ROS_ERROR("move_joints service call failed (unexpectedly)");
   }
 
   ros::Duration(2).sleep();
 
   // moving by specifying joint angle values is not the most intuitive way
-  // it's easier to specify the pose of the endeffector we'd like to reach
+  // it's easier to specify the pose of the end effector we'd like to reach
   geometry_msgs::Pose goal_pose;
   goal_pose.position.x = .5;
   goal_pose.position.y = .2;
@@ -84,7 +77,7 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
   // the client.movePTP Request requires a Pose argument
   success = move_client->movePTP(goal_pose);
 
-  // not all poses can be reached, always check the success of the operation
+  // not all poses can be reached, remember to check the result
   if (!success)
   {
     ROS_ERROR("move_ptp service call failed");
@@ -94,10 +87,10 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
 
   // The orientation of a pose is stored as a quaternion and its values usually
   // aren't specified manually. It's easier to use euler or RPY angles:
-  // Here we rotate the endeffector by 90degrees around the y axis
+  // Here we rotate the end effector by 90degrees around the y axis
   // HINT: use the coordinate systems in RViz to better visualize rotations
   // in RViz the XYZ axes are color coded in RGB: X=red, Y=green, Z=blue
-  // the endeffector is pointing along the blue z-axis
+  // the end effector is pointing along the blue z-axis
   orientationFromRPY(0, M_PI / 2, 0, &goal_pose.orientation);
 
   // move to same position but different orientation!
@@ -108,17 +101,14 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
 
   // rotate 90deg around the y-axis and 45deg around the x-axis
   orientationFromRPY(0, -M_PI / 2, 0, &goal_pose.orientation);
-
-  // move to same position but different orientation!
-
   ROS_INFO("move_ptp to the same position but different orientation:");
   move_client->movePTP(goal_pose);
 
   ros::Duration(2).sleep();
 
-  // Next up: move the endeffector on a triangular path
+  // Next up: move the end effector on a triangular path
   // while maintaining the same orientation
-  ROS_INFO("Next: move the endeffector on a triangluar path");
+  ROS_INFO("Next: move the end effector on a triangular path");
 
   // orient the z-axis "forward" (along the base x-axis)
   orientationFromRPY(0, M_PI / 2, 0, &goal_pose.orientation);
@@ -176,13 +166,9 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
   ROS_INFO("try to client.movePTP to:");
   success = move_client->movePTP(goal_pose);
 
-  if (success)
+  if (!success)
   {
-    ROS_INFO("move_ptp service call succeeded");
-  }
-  else
-  {
-    ROS_ERROR("move_ptp service call failed");
+    ROS_ERROR("move_ptp service call failed (unexpectedly)");
   }
 
   ros::Duration(2).sleep();
