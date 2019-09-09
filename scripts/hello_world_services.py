@@ -49,7 +49,7 @@ def hello_world():
 
     # move all seven joints into their zero position by calling the move_joints
     # service and passing the joint values as arguments
-    rospy.loginfo("calling move_joints with all joints values = 0")
+    rospy.loginfo("calling move_joints with all joint values = 0")
     move_joints_service.call(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
     time.sleep(2)
@@ -72,7 +72,7 @@ def hello_world():
     if resp.success:
         rospy.loginfo("move_joints service call succeeded!")
     if resp.success:
-        rospy.logerr("move_joints service call failed (unexpectately)!")
+        rospy.logerr("move_joints service call failed (unexpectedly)!")
 
     time.sleep(2)
 
@@ -128,9 +128,9 @@ def hello_world():
 
     time.sleep(2)
 
-    # Next up: move the endeffector on a triangular path
+    # Next up: move the end effector on a triangular path
     # while maintaining the same orientation
-    rospy.loginfo("Next: move the endeffector on a triangluar path")
+    rospy.loginfo("Next: move the end effector on a triangular path")
 
     # orient the z-axis "forward" (along the base x-axis)
     quaternion_array = quaternion_from_euler(0, pi / 2, 0, 'sxyz')

@@ -34,13 +34,13 @@ def hello_world(move_client):
     # move to a random pose, this service call requires no arguments
     move_client.move_random()
 
-    # The robot should now be moving in RViz! The delays in this code
+    # The robot should now be moving (in RViz)! The delays in this code
     # are only for illustrative purposes and can be removed
     time.sleep(2)
 
     # move all seven joints into their zero position by calling the move_joints
     # service and passing the joint values as arguments
-    rospy.loginfo("calling move_joints with all joints values = 0")
+    rospy.loginfo("calling move_joints with all joint values = 0")
     move_client.move_joints(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 
     time.sleep(2)
@@ -75,7 +75,7 @@ def hello_world(move_client):
     # the move_ptp service call requires a Pose argument
     resp = move_client.move_ptp(goal_pose)
 
-    # not all poses can be reached. Remember to check the result
+    # not all poses can be reached, remember to check the result
     if not resp:
         rospy.logerr("move_ptp service call failed")
 
@@ -101,9 +101,9 @@ def hello_world(move_client):
 
     time.sleep(2)
 
-    # Next up: move the endeffector on a triangular path
+    # Next up: move the end effector on a triangular path
     # while maintaining the same orientation
-    rospy.loginfo("Next: move the endeffector on a triangluar path")
+    rospy.loginfo("Next: move the end effector on a triangular path")
 
     # orient the z-axis "forward" (along the base x-axis)
     goal_pose.orientation = euler_to_quaternion(0, pi / 2, 0, 'sxyz')
