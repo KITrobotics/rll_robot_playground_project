@@ -203,7 +203,6 @@ void helloWorld(ros::NodeHandle* const nh)
 
   // this time we move on a linear trajectory to the specified pose
   lin_req.pose = goal_pose;
-  lin_req.cartesian_time_parametrization = true;
 
   ROS_INFO("move_lin to the tip of the triangle:");
   ROS_INFO_STREAM(lin_req.pose);
