@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 #
-# This file is part of the  Robot Learning Lab Robot Playground project
+# This file is part of the Robot Learning Lab Robot Playground project
 #
 # Copyright (C) 2019 Mark Weinreuter <uieai@student.kit.edu>
 #

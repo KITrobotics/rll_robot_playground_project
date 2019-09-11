@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="robot" default="iiwa" />
+  <arg name="use_python" default="true" />
 
-  <node ns="$(arg robot)" name="move_sender" pkg="rll_robot_playground_project" type="greetings.py" output="screen"/>
+  <node if="$(arg use_python)"     ns="$(arg robot)" name="move_sender" pkg="rll_robot_playground_project" type="playground.py" output="screen"/>
+  <node unless="$(arg use_python)" ns="$(arg robot)" name="move_sender" pkg="rll_robot_playground_project" type="playground" output="screen"/>
 
 </launch>

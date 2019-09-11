@@ -1,15 +1,16 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 84
+    Help Height: 96
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /MotionPlanning1
         - /MotionPlanning1/Scene Robot1
         - /MotionPlanning1/Planning Request1
         - /MotionPlanning1/Planned Path1
+        - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.742560029
-    Tree Height: 621
+    Tree Height: 595
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -580,6 +581,120 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        axis_cam_base:
+          Value: false
+        axis_cam_top:
+          Value: false
+        iiwa_base_adapter:
+          Value: false
+        iiwa_gripper_adapter:
+          Value: false
+        iiwa_gripper_base:
+          Value: false
+        iiwa_gripper_finger_left:
+          Value: false
+        iiwa_gripper_finger_right:
+          Value: false
+        iiwa_gripper_link_ee:
+          Value: false
+        iiwa_gripper_waggon_left:
+          Value: false
+        iiwa_gripper_waggon_right:
+          Value: false
+        iiwa_link_0:
+          Value: false
+        iiwa_link_1:
+          Value: false
+        iiwa_link_2:
+          Value: false
+        iiwa_link_3:
+          Value: false
+        iiwa_link_4:
+          Value: false
+        iiwa_link_5:
+          Value: false
+        iiwa_link_6:
+          Value: false
+        iiwa_link_7:
+          Value: false
+        iiwa_link_ee:
+          Value: true
+        iiwa_roboception_adapter:
+          Value: false
+        iiwa_roboception_camera_uncal:
+          Value: false
+        iiwa_roboception_gusset:
+          Value: false
+        profile_cams:
+          Value: false
+        table:
+          Value: true
+        table_buffer:
+          Value: false
+        wall_back:
+          Value: false
+        wall_front:
+          Value: false
+        wall_left:
+          Value: false
+        wall_right:
+          Value: false
+        world:
+          Value: false
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        world:
+          iiwa_base_adapter:
+            iiwa_link_0:
+              iiwa_link_1:
+                iiwa_link_2:
+                  iiwa_link_3:
+                    iiwa_link_4:
+                      iiwa_link_5:
+                        iiwa_link_6:
+                          iiwa_link_7:
+                            iiwa_link_ee:
+                              iiwa_gripper_adapter:
+                                iiwa_gripper_base:
+                                  iiwa_gripper_waggon_left:
+                                    iiwa_gripper_finger_left:
+                                      {}
+                                  iiwa_gripper_waggon_right:
+                                    iiwa_gripper_finger_right:
+                                      {}
+                              iiwa_gripper_link_ee:
+                                {}
+          profile_cams:
+            axis_cam_base:
+              axis_cam_top:
+                {}
+            iiwa_roboception_gusset:
+              iiwa_roboception_adapter:
+                iiwa_roboception_camera_uncal:
+                  {}
+          table:
+            {}
+          table_buffer:
+            {}
+          wall_back:
+            {}
+          wall_front:
+            {}
+          wall_left:
+            {}
+          wall_right:
+            {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -596,25 +711,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.99650002
+      Distance: 0.827863038
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.113567002
-        Y: 0.105920002
-        Z: 2.23518001e-07
+        X: 2.36127782
+        Y: -0.900209606
+        Z: 2.19999981
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.509796977
+      Pitch: 0.715000212
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 5.65994978
+      Yaw: 5.85359478
     Saved: ~
 Window Geometry:
   Displays:
@@ -628,9 +743,9 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000002ba0000051dfc0200000007fb000000100044006900730070006c006100790073010000003f000002fd000000d400fffffffb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a0056006900650077007300000003b0000000b0000000a800fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb0000002e004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d00200053006c00690064006500720000000000ffffffff0000004200fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006701000003420000021a000001c700ffffff000003f40000051d00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000100000000000002c000000516fc0200000008fb000000100044006900730070006c0061007900730100000045000002f90000010600fffffffb0000000800480065006c00700000000342000000bb0000008c00fffffffb0000000a0056006900650077007300000003b0000000b0000000ca00fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb0000002e004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d00200053006c00690064006500720000000000ffffffff0000000000000000fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067010000034400000217000001ac00fffffffb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000004a00ffffff000003ee0000051600000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1716
   X: 0
-  Y: 38
+  Y: 18
