@@ -29,6 +29,5 @@ target_link_libraries(playground_iface ${catkin_LIBRARIES})
 add_executable(hello_world src/hello_world.cpp)
 target_link_libraries(hello_world ${catkin_LIBRARIES})
 
-add_executable(hello_world_services src/hello_world_services.cpp)
-target_link_libraries(hello_world_services ${catkin_LIBRARIES})
-
+add_executable(playground src/playground.cpp)
+target_link_libraries(playground ${catkin_LIBRARIES})
