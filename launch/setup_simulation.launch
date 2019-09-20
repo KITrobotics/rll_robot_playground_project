@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+ <arg name="headless" default="false"/>
+
+ <include file="$(find rll_robot_playground_project)/launch/moveit_planning_execution.launch">
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="output" value="log"/>
+  </include>
+
+ <include file="$(find rll_robot_playground_project)/launch/playground_iface.launch"></include>
+
+</launch>
