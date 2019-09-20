@@ -28,9 +28,11 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "playground_iface");
   ros::NodeHandle nh;
 
-  PlaygroundIface iface(nh, "move_client");
-  iface.startServicesAndRunNode(nh);
-  ros::waitForShutdown();
+  if (waitForMoveGroupAction())
+  {
+    PlaygroundIface iface(nh, "move_client");
+    iface.startServicesAndRunNode(nh);
+  }
 
   return 0;
 }

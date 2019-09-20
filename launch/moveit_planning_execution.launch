@@ -4,6 +4,7 @@
   <arg name="headless" default="false"/>
   <arg name="use_sim" default="false"/>
   <arg name="gazebo_port" default="11345"/>
+  <arg name="output" default="screen"/>
 
   <!--  This loads the whole Moveit! setup -->
   <include file="$(find rll_moveit_config)/launch/moveit_planning_execution.launch">
@@ -14,6 +15,7 @@
     <arg name="use_sim" value="$(arg use_sim)" />
     <arg name="gazebo_port" value="$(arg gazebo_port)" />
     <arg name="semantic_description_file" value="$(find rll_robot_playground_project)/config/playground_cell.srdf.xacro" />
+    <arg name="output" value="$(arg output)"/>
   </include>
 
 </launch>
