@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="use_python" default="true" />
 
-   <include file="$(find rll_robot_playground_project)/launch/move_sender.launch" />
+   <include file="$(find rll_robot_playground_project)/launch/move_sender.launch" >
+       <arg name="use_python" value="$(arg use_python)" />
+   </include>
 
    <include file="$(find rll_tools)/launch/run_project.launch" />
 
