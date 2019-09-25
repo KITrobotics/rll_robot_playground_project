@@ -36,7 +36,7 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
   ros::Duration(2).sleep();
 
   // move all seven joints into their zero (initial) position
-  // set all joint values of the Request to zero (unecessary, zero is the default)
+  // set all joint values of the Request to zero (unnecessary, zero is the default)
   ROS_INFO("calling move_joints with all joint values = 0");
   move_client->moveJoints(0, 0, 0, 0, 0, 0, 0);
 
