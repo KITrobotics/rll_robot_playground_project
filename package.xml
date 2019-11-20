@@ -10,6 +10,7 @@
 
   <author email="wolfgang.wiedmeyer@kit.edu">Wolfgang Wiedmeyer</author>
 
+  <build_depend>actionlib</build_depend>
   <depend>rll_msgs</depend>
   <depend>rll_move</depend>
   <depend>rll_move_client</depend>

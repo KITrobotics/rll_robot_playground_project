@@ -5,7 +5,7 @@
 #include <rll_move_client/move_client_default.h>
 #include <rll_move_client/util.h>
 
-void helloWorld(RLLDefaultMoveClient* const move_client)
+bool helloWorld(RLLDefaultMoveClient* const move_client)
 {
   std::cout << "Hello World" << std::endl;  // avoid cout for logging
   ROS_INFO("Hello ROS");                    // better use ROS_INFO, ROS_ERROR...
@@ -164,13 +164,15 @@ void helloWorld(RLLDefaultMoveClient* const move_client)
   ROS_INFO_STREAM(goal_pose);
 
   ros::Duration(2).sleep();
+
+  return true;
 }
 
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "hello_world");
-  RLLCallbackMoveClient<RLLDefaultMoveClient> client(&helloWorld, "move_client");
-  ros::spin();
+  RLLCallbackMoveClient<RLLDefaultMoveClient> client(&helloWorld);
+  client.spin();
 
   return 0;
 }
