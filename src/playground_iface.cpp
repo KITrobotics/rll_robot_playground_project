@@ -25,31 +25,34 @@ void PlaygroundMoveIfaceBase::startServicesAndRunNode(ros::NodeHandle& nh)
   ros::AsyncSpinner spinner(0);
   spinner.start();
 
-  RLLMoveIface* move_iface_ptr = this;
+  RLLMoveIfaceServices* move_iface_ptr = this;
+  RLLMoveIfaceBase* move_iface_base_ptr = this;
 
   resetToHome();
 
-  RLLMoveIface::JobServer server_job(nh, RLLMoveIface::RUN_JOB_SRV_NAME,
-                                     boost::bind(&RLLMoveIface::runJobAction, this, _1, &server_job), false);
+  RLLMoveIfaceBase::JobServer server_job(nh, RLLMoveIfaceBase::RUN_JOB_SRV_NAME,
+                                         boost::bind(&RLLMoveIfaceBase::runJobAction, this, _1, &server_job), false);
   server_job.start();
-  RLLMoveIface::JobServer server_idle(nh, RLLMoveIface::IDLE_JOB_SRV_NAME,
-                                      boost::bind(&RLLMoveIface::idleAction, this, _1, &server_idle), false);
+  RLLMoveIfaceBase::JobServer server_idle(nh, RLLMoveIfaceBase::IDLE_JOB_SRV_NAME,
+                                          boost::bind(&RLLMoveIfaceBase::idleAction, this, _1, &server_idle), false);
   server_idle.start();
 
-  ros::ServiceServer robot_ready =
-      nh.advertiseService(RLLMoveIface::ROBOT_READY_SRV_NAME, &RLLMoveIface::robotReadySrv, move_iface_ptr);
-  ros::ServiceServer move_random =
-      nh.advertiseService(RLLMoveIface::MOVE_RANDOM_SRV_NAME, &RLLMoveIface::moveRandomSrv, move_iface_ptr);
+  ros::ServiceServer robot_ready = nh.advertiseService(RLLMoveIfaceServices::ROBOT_READY_SRV_NAME,
+                                                       &RLLMoveIfaceServices::robotReadySrv, move_iface_ptr);
+  ros::ServiceServer job_finished = nh.advertiseService(RLLMoveIfaceBase::JOB_FINISHED_SRV_NAME,
+                                                        &RLLMoveIfaceBase::jobFinishedSrv, move_iface_base_ptr);
+  ros::ServiceServer move_random = nh.advertiseService(RLLMoveIfaceServices::MOVE_RANDOM_SRV_NAME,
+                                                       &RLLMoveIfaceServices::moveRandomSrv, move_iface_ptr);
   ros::ServiceServer move_lin =
-      nh.advertiseService(RLLMoveIface::MOVE_LIN_SRV_NAME, &RLLMoveIface::moveLinSrv, move_iface_ptr);
+      nh.advertiseService(RLLMoveIfaceServices::MOVE_LIN_SRV_NAME, &RLLMoveIfaceServices::moveLinSrv, move_iface_ptr);
   ros::ServiceServer move_ptp =
-      nh.advertiseService(RLLMoveIface::MOVE_PTP_SRV_NAME, &RLLMoveIface::movePTPSrv, move_iface_ptr);
-  ros::ServiceServer move_joints =
-      nh.advertiseService(RLLMoveIface::MOVE_JOINTS_SRV_NAME, &RLLMoveIface::moveJointsSrv, move_iface_ptr);
-  ros::ServiceServer get_pose =
-      nh.advertiseService(RLLMoveIface::GET_POSE_SRV_NAME, &RLLMoveIface::getCurrentPoseSrv, move_iface_ptr);
-  ros::ServiceServer get_joint_values = nh.advertiseService(RLLMoveIface::GET_JOINT_VALUES_SRV_NAME,
-                                                            &RLLMoveIface::getCurrentJointValuesSrv, move_iface_ptr);
+      nh.advertiseService(RLLMoveIfaceServices::MOVE_PTP_SRV_NAME, &RLLMoveIfaceServices::movePTPSrv, move_iface_ptr);
+  ros::ServiceServer move_joints = nh.advertiseService(RLLMoveIfaceServices::MOVE_JOINTS_SRV_NAME,
+                                                       &RLLMoveIfaceServices::moveJointsSrv, move_iface_ptr);
+  ros::ServiceServer get_pose = nh.advertiseService(RLLMoveIfaceServices::GET_POSE_SRV_NAME,
+                                                    &RLLMoveIfaceServices::getCurrentPoseSrv, move_iface_ptr);
+  ros::ServiceServer get_joint_values = nh.advertiseService(
+      RLLMoveIfaceServices::GET_JOINT_VALUES_SRV_NAME, &RLLMoveIfaceServices::getCurrentJointValuesSrv, move_iface_ptr);
 
   ROS_INFO("RLL Robot Playground Interface started");
   ros::waitForShutdown();

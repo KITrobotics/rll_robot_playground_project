@@ -2,7 +2,7 @@
  * This file is part of the Robot Learning Lab Robot Playground project
  *
  * Copyright (C) 2019 Wolfgang Wiedmeyer <wolfgang.wiedmeyer@kit.edu>
- * Copyright (C) 2019 Mark Weinretuer <uieai@student.kit.edu>
+ * Copyright (C) 2019 Mark Weinreuter <uieai@student.kit.edu>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,11 +23,10 @@
 
 #include <rll_move/move_iface_base.h>
 
-class PlaygroundMoveIfaceBase : public RLLMoveIfaceBase<>
+class PlaygroundMoveIfaceBase : public RLLMoveIfaceBase
 {
 public:
-  PlaygroundMoveIfaceBase(ros::NodeHandle nh, const std::string& action_name = "move_client")
-    : RLLMoveIfaceBase(nh, action_name)
+  explicit PlaygroundMoveIfaceBase(const ros::NodeHandle& nh) : RLLMoveIfaceBase(nh)
   {
   }
   void startServicesAndRunNode(ros::NodeHandle& nh) override;

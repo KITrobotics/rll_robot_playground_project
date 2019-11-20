@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 
   if (waitForMoveGroupAction())
   {
-    PlaygroundIface iface(nh, "move_client");
+    PlaygroundIface iface(nh);
     iface.startServicesAndRunNode(nh);
   }
 

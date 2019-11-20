@@ -18,9 +18,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import time
-import rospy
+from __future__ import print_function
+
 from math import pi
+import time
+
+import rospy
 from geometry_msgs.msg import Pose, Point
 
 from rll_move_client.client import RLLDefaultMoveClient
@@ -165,8 +168,14 @@ def hello_world(move_client):
     # we can obtain the chosen random pose from the response
     rospy.loginfo("move_random moved to: %s", resp)
 
+    return True
 
-if __name__ == "__main__":
+
+def main():
     rospy.init_node('hello_world')
     client = RLLDefaultMoveClient(hello_world)
-    rospy.spin()
+    client.spin()
+
+
+if __name__ == "__main__":
+    main()

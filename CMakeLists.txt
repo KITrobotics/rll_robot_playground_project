@@ -1,33 +1,40 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(rll_robot_playground_project)
 
+# required for clang-tidy
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_compile_options(-std=c++11)
 
+# Warnings
+add_definitions(-Wall -Wextra
+  -Wwrite-strings -Wunreachable-code -Wpointer-arith -Wredundant-decls)
+
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  message_generation
-  std_srvs
-  std_msgs
-  geometry_msgs
-  moveit_core
-  moveit_ros_planning
-  moveit_ros_planning_interface
-  rll_msgs
+  actionlib
   rll_move
   rll_move_client
-  genmsg actionlib_msgs actionlib
+  rll_msgs
 )
 
 catkin_package(
-   CATKIN_DEPENDS rll_msgs rll_move_client
+   CATKIN_DEPENDS rll_move_client rll_msgs
 )
-include_directories(include ${catkin_INCLUDE_DIRS})
+
+include_directories(SYSTEM ${catkin_INCLUDE_DIRS})
+include_directories(include)
 
 add_executable(playground_iface src/playground_iface.cpp src/playground_iface_node.cpp)
 target_link_libraries(playground_iface ${catkin_LIBRARIES})
 
-add_executable(hello_world src/hello_world.cpp)
-target_link_libraries(hello_world ${catkin_LIBRARIES})
+add_executable(playground_hello_world src/hello_world.cpp)
+target_link_libraries(playground_hello_world ${catkin_LIBRARIES})
 
 add_executable(playground src/playground.cpp)
 target_link_libraries(playground ${catkin_LIBRARIES})
+
+catkin_install_python(PROGRAMS scripts/hello_world.py scripts/playground.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+install(TARGETS playground playground_hello_world playground_iface
+        RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(DIRECTORY config launch urdf DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
