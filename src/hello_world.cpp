@@ -45,7 +45,8 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   // rotate the fourth joint by 90 degrees (pi/2 since we work with radians)
   // the remaining joint values are still equal to zero
   ROS_INFO("calling move_joints with joint_4 = pi/2");
-  bool success = move_client->moveJoints(0, 0, 0, M_PI / 2, 0, 0, 0);
+  bool success;
+  success = move_client->moveJoints(0, 0, 0, M_PI / 2, 0, 0, 0);
 
   // previously we neglected to check the response of the service call.
   // You should always check the result of a service call!
