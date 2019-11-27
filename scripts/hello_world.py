@@ -62,11 +62,12 @@ def hello_world(move_client):
 
     # ups, moving the fourth joint by 90 degrees didn't work, we bumped into
     # the workspace boundaries
-    # Let's try to move joint 2, 4 and 6 so that we end up in an upright position
-    # of the end effector close to the front of the workspace.
+    # Let's try to move joint 2, 4 and 6 so that we end up in an upright
+    # position of the end effector close to the front of the workspace.
     rospy.loginfo("calling move_joints to move into an upright position "
                   "close to the front of the workspace")
-    resp = move_client.move_joints(0.0, pi / 4, 0.0, -pi / 4, 0.0, -pi / 2, 0.0)
+    resp = move_client.move_joints(0.0, pi / 4, 0.0, -pi / 4,
+                                   0.0, -pi / 2, 0.0)
 
     if not resp:
         rospy.logerr("move_joints service call failed (unexpectedly)!")
