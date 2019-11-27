@@ -37,9 +37,11 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   }
 
   // ups, moving the fourth joint by 90 degrees didn't work, we bumped into
-  // the workspace boundaries -> try moving 90 degrees in the other direction
-  ROS_INFO("calling move_joints with joint_4 = -pi/2");
-  success = move_client->moveJoints(0, 0, 0, -M_PI / 2, 0, 0, 0);
+  // the workspace boundaries
+  // Let's try to move joint 2, 4 and 6 so that we end up in an upright position
+  // of the end effector close to the front of the workspace.
+  ROS_INFO("calling move_joints to move into an upright position close to the front of the workspace");
+  success = move_client->moveJoints(0, M_PI / 4, 0, -M_PI / 4, 0, -M_PI / 2, 0);
 
   if (!success)
   {
@@ -98,7 +100,7 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   // move to the starting position still in a ptp fashion
   goal_pose.position.x = 0.5;
   goal_pose.position.y = -0.6;
-  goal_pose.position.z = 0.25;
+  goal_pose.position.z = 0.3;
 
   ROS_INFO("move_ptp to the starting point of the triangle:");
   move_client->movePTP(goal_pose);
@@ -115,7 +117,7 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   ros::Duration(1).sleep();
 
   // next point is the upper right point of the triangle
-  goal_pose.position.y = -0.1;
+  goal_pose.position.y = -0.15;
 
   ROS_INFO("moveLin to the upper right point of the triangle:");
   move_client->moveLin(goal_pose);
@@ -124,7 +126,7 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
 
   // close the triangle by moving back diagonally to the start position
   goal_pose.position.y = -0.6;
-  goal_pose.position.z = .25;
+  goal_pose.position.z = .3;
 
   ROS_INFO("moveLin to the start to close the triangle shape:");
   move_client->moveLin(goal_pose);
