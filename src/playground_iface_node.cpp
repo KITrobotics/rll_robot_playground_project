@@ -31,7 +31,7 @@ int main(int argc, char** argv)
   if (waitForMoveGroupAction())
   {
     PlaygroundIface iface(nh);
-    iface.startServicesAndRunNode(nh);
+    iface.startServicesAndRunNode(&nh);
   }
 
   return 0;
