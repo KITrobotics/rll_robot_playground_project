@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef INCLUDE_PLAYGROUND_IFACE_H_
-#define INCLUDE_PLAYGROUND_IFACE_H_
+#ifndef RLL_ROBOT_PLAYGROUND_PROJECT_PLAYGROUND_IFACE_H
+#define RLL_ROBOT_PLAYGROUND_PROJECT_PLAYGROUND_IFACE_H
 
 #include <rll_move/move_iface_base.h>
 
@@ -29,7 +29,7 @@ public:
   explicit PlaygroundMoveIfaceBase(const ros::NodeHandle& nh) : RLLMoveIfaceBase(nh)
   {
   }
-  void startServicesAndRunNode(ros::NodeHandle& nh) override;
+  void startServicesAndRunNode(ros::NodeHandle* nh) override;
 };
 
-#endif /* INCLUDE_PLAYGROUND_IFACE_H_ */
+#endif  // RLL_ROBOT_PLAYGROUND_PROJECT_PLAYGROUND_IFACE_H
