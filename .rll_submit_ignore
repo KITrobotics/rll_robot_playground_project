@@ -1,6 +1,7 @@
 # List of files and directories that should be ignored for submissions (additionally to .gitignore)
 
 .git
+.ci
 .tar
 .zip
 .log
