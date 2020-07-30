@@ -92,6 +92,11 @@ def hello_world(move_client):
 
     time.sleep(2)
 
+    # You can also switch back to moving the joints directly. Let's repeat the
+    # joint movement from before.
+    move_client.move_joints(0.0, pi / 4, 0.0, -pi / 4,
+                            0.0, -pi / 2, 0.0)
+
     # Next up: move the end effector on a triangular path
     # while maintaining the same orientation
     rospy.loginfo("Next: move the end effector on a triangular path")
@@ -105,8 +110,6 @@ def hello_world(move_client):
     rospy.loginfo("move_ptp to the starting point of the triangle")
     move_client.move_ptp(goal_pose)  # (error check omitted)
 
-    time.sleep(1)
-
     # move up, its a right angled triangle
     goal_pose.position.z = .7
 
@@ -114,10 +117,8 @@ def hello_world(move_client):
     rospy.loginfo("move_lin to the tip of the triangle")
     move_client.move_lin(goal_pose)  # (error check omitted)
 
-    time.sleep(1)
-
     # next point is the upper right point of the triangle
-    goal_pose.position.y = -0.15
+    goal_pose.position.y = -0.25
     rospy.loginfo("move_lin to the upper right point of the triangle")
     move_client.move_lin(goal_pose)  # (error check omitted)
 
@@ -126,8 +127,6 @@ def hello_world(move_client):
     goal_pose.position.z = .3
     rospy.loginfo("move_lin to the start to close the triangle shape")
     move_client.move_lin(goal_pose)  # (error check omitted)
-
-    time.sleep(1)
 
     # Note: move_lin is not always successful, even if move_ptp succeeds.
     # This is because moving on a linear trajectory is more constraining

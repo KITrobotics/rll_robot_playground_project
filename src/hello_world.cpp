@@ -109,6 +109,10 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
 
   ros::Duration(2).sleep();
 
+  // You can also switch back to moving the joints directly. Let's repeat the
+  // joint movement from before.
+  move_client->moveJoints(0, M_PI / 4, 0, -M_PI / 4, 0, -M_PI / 2, 0);
+
   // Next up: move the end effector on a triangular path
   // while maintaining the same orientation
   ROS_INFO("Next: move the end effector on a triangular path");
@@ -124,8 +128,6 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   ROS_INFO("move_ptp to the starting point of the triangle:");
   move_client->movePTP(goal_pose);
 
-  ros::Duration(1).sleep();
-
   // move up, its a right angled triangle
   goal_pose.position.z = .7;
 
@@ -133,15 +135,11 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   ROS_INFO("moveLin to the tip of the triangle:");
   move_client->moveLin(goal_pose);
 
-  ros::Duration(1).sleep();
-
   // next point is the upper right point of the triangle
-  goal_pose.position.y = -0.15;
+  goal_pose.position.y = -0.25;
 
   ROS_INFO("moveLin to the upper right point of the triangle:");
   move_client->moveLin(goal_pose);
-
-  ros::Duration(1).sleep();
 
   // close the triangle by moving back diagonally to the start position
   goal_pose.position.y = -0.6;
@@ -149,8 +147,6 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
 
   ROS_INFO("moveLin to the start to close the triangle shape:");
   move_client->moveLin(goal_pose);
-
-  ros::Duration(1).sleep();
 
   // note: client.moveLin is not always successful, even if client.movePTP succeeds.
   // This is because moving on a linear trajectory is more constraining
@@ -183,8 +179,6 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   // we can obtain the chosen random pose from the response
   ROS_INFO("move_random moved to: ");
   ROS_INFO_STREAM(goal_pose);
-
-  ros::Duration(2).sleep();
 
   return true;
 }
