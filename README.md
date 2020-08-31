@@ -6,6 +6,7 @@ Please see the [Robot Learning Lab documentation](https://rll-doc.ipr.kit.edu/pr
 for a detailed guide on how to get started or follow the quick start guide below if you are already familiar with the
 Robot Learning Lab.
 
+![The Robot Playground Project in action.](screenshot.png)
 
 ## Quick start
 

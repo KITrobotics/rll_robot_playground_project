@@ -72,7 +72,7 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   // moving by specifying joint angle values is not the most intuitive way
   // it's easier to specify the pose of the end effector we'd like to reach
   geometry_msgs::Pose goal_pose;
-  goal_pose.position.x = .5;
+  goal_pose.position.x = .3;
   goal_pose.position.y = .2;
   goal_pose.position.z = .7;
   goal_pose.orientation.z = 1;  // rotate 180 degrees around z (see below)

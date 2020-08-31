@@ -103,7 +103,7 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   orientationFromRPY(0, M_PI / 2, 0, &goal_pose.orientation);
 
   // move to the starting position still in a ptp fashion
-  goal_pose.position.x = 0.5;
+  goal_pose.position.x = 0.3;
   goal_pose.position.y = -0.6;
   goal_pose.position.z = 0.3;
 
