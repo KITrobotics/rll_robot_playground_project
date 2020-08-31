@@ -154,6 +154,15 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
 
   ros::Duration(2).sleep();
 
+  // Besides moving the end effector, you can also change the arm angle to
+  // move the elbow of the robot.
+  double goal_arm_angle = M_PI / 2;
+  move_client->moveLinArmangle(goal_pose, goal_arm_angle, true);
+  // This is also possible with PTP movements.
+  goal_arm_angle = -M_PI / 2;
+  goal_pose.position.z = .5;
+  move_client->movePTPArmangle(goal_pose, goal_arm_angle);
+
   // the Response object sometimes holds more information than only success
   ROS_INFO("move_random to a new random position");
   move_client->moveRandom(&goal_pose);  // (error check omitted)

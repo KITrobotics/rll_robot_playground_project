@@ -165,6 +165,15 @@ def hello_world(move_client):
 
     time.sleep(2)
 
+    # Besides moving the end effector, you can also change the arm angle to
+    # move the elbow of the robot.
+    goal_arm_angle = pi / 2
+    move_client.move_lin_armangle(goal_pose, goal_arm_angle, True)
+    # This is also possible with PTP movements.
+    goal_arm_angle = -pi / 2
+    goal_pose.position.z = .5
+    move_client.move_ptp_armangle(goal_pose, goal_arm_angle)
+
     # the response sometimes holds more information than only a boolean status
     # move_random() returns the random pose the end effector moved to
     rospy.loginfo("move_random to a new random position")

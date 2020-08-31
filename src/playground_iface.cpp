@@ -46,8 +46,12 @@ void PlaygroundMoveIfaceBase::startServicesAndRunNode(ros::NodeHandle* nh)
                                                         &RLLMoveIfaceServices::moveRandomSrv, move_iface_ptr);
   ros::ServiceServer move_lin =
       nh->advertiseService(RLLMoveIfaceServices::MOVE_LIN_SRV_NAME, &RLLMoveIfaceServices::moveLinSrv, move_iface_ptr);
+  ros::ServiceServer move_lin_arm_angle = nh->advertiseService(
+      RLLMoveIfaceServices::MOVE_LIN_ARMANGLE_SRV_NAME, &RLLMoveIfaceServices::moveLinArmangleSrv, move_iface_ptr);
   ros::ServiceServer move_ptp =
       nh->advertiseService(RLLMoveIfaceServices::MOVE_PTP_SRV_NAME, &RLLMoveIfaceServices::movePTPSrv, move_iface_ptr);
+  ros::ServiceServer move_ptp_armangle = nh->advertiseService(
+      RLLMoveIfaceServices::MOVE_PTP_ARMANGLE_SRV_NAME, &RLLMoveIfaceServices::movePTPArmangleSrv, move_iface_ptr);
   ros::ServiceServer move_joints = nh->advertiseService(RLLMoveIfaceServices::MOVE_JOINTS_SRV_NAME,
                                                         &RLLMoveIfaceServices::moveJointsSrv, move_iface_ptr);
   ros::ServiceServer get_pose = nh->advertiseService(RLLMoveIfaceServices::GET_POSE_SRV_NAME,

@@ -72,7 +72,7 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   // moving by specifying joint angle values is not the most intuitive way
   // it's easier to specify the pose of the end effector we'd like to reach
   geometry_msgs::Pose goal_pose;
-  goal_pose.position.x = .3;
+  goal_pose.position.x = .5;
   goal_pose.position.y = .2;
   goal_pose.position.z = .7;
   goal_pose.orientation.z = 1;  // rotate 180 degrees around z (see below)
@@ -121,7 +121,7 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   orientationFromRPY(0, M_PI / 2, 0, &goal_pose.orientation);
 
   // move to the starting position still in a ptp fashion
-  goal_pose.position.x = 0.5;
+  goal_pose.position.x = 0.3;
   goal_pose.position.y = -0.6;
   goal_pose.position.z = 0.3;
 
@@ -171,6 +171,15 @@ bool helloWorld(RLLDefaultMoveClient* const move_client)
   }
 
   ros::Duration(2).sleep();
+
+  // Besides moving the end effector, you can also change the arm angle to
+  // move the elbow of the robot.
+  double goal_arm_angle = M_PI / 2;
+  move_client->moveLinArmangle(goal_pose, goal_arm_angle, true);
+  // This is also possible with PTP movements.
+  goal_arm_angle = -M_PI / 2;
+  goal_pose.position.z = .5;
+  move_client->movePTPArmangle(goal_pose, goal_arm_angle);
 
   // the Response object sometimes holds more information than only success
   ROS_INFO("move_random to a new random position");
