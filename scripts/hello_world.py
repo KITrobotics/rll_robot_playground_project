@@ -3,7 +3,7 @@
 #
 # This file is part of the  Robot Learning Lab Robot Playground project
 #
-# Copyright (C) 2019 Mark Weinreuter <uieai@student.kit.edu>
+# Copyright (C) 2019 Mark Weinreuter <mark.weinreuter@kit.edu>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -123,7 +123,7 @@ def hello_world(move_client):
     goal_pose.orientation = orientation_from_rpy(0, pi / 2, 0)
 
     # move to the starting position still in a ptp fashion
-    goal_pose.position = Point(0.5, -0.6, 0.3)
+    goal_pose.position = Point(0.3, -0.6, 0.3)
 
     rospy.loginfo("move_ptp to the starting point of the triangle")
     move_client.move_ptp(goal_pose)  # (error check omitted)

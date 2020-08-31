@@ -1,12 +1,16 @@
 <?xml version="1.0"?>
 <launch>
  <arg name="headless" default="false"/>
+  <arg name="eef_type" default="cap" />
 
  <include file="$(find rll_robot_playground_project)/launch/moveit_planning_execution.launch">
     <arg name="headless" value="$(arg headless)"/>
     <arg name="output" value="log"/>
+    <arg name="eef_type" value="$(arg eef_type)"/>
   </include>
 
- <include file="$(find rll_robot_playground_project)/launch/playground_iface.launch"></include>
+ <include file="$(find rll_robot_playground_project)/launch/playground_iface.launch">
+     <arg name="eef_type" value="$(arg eef_type)"/>
+ </include>
 
 </launch>

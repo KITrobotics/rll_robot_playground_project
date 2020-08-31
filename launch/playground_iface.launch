@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="robot" default="iiwa" />
+  <arg name="eef_type" default="cap" />
 
   <node ns="$(arg robot)" name="playground_iface" pkg="rll_robot_playground_project" type="playground_iface" respawn="false" output="screen">
     <param name="no_gripper" value="true"/>
     <param name="collision_link" value="table_buffer" />
     <remap from="/use_sim_time" to="/$(arg robot)/use_sim_time" />
     <remap from="/clock" to="/$(arg robot)/clock" />
+    <param name="eef_type" value="$(arg eef_type)"/>
   </node>
 
 </launch>
