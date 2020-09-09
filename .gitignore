@@ -54,6 +54,7 @@ build
 *.suo
 *.user
 *.ilk
+*.pyc
 
 # CVS files
 CVS/*
