@@ -6,6 +6,7 @@ find_package(catkin REQUIRED COMPONENTS
   rll_move
   rll_move_client
   rll_msgs
+  rostest
 )
 
 catkin_package(
@@ -30,3 +31,9 @@ catkin_install_python(PROGRAMS scripts/hello_world.py scripts/playground.py
 install(TARGETS playground playground_hello_world playground_iface
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 install(DIRECTORY config launch urdf DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
+
+if(CATKIN_ENABLE_TESTING)
+  add_rostest(tests/launch/demo_tests.test ARGS use_sim:=false)
+  add_rostest(tests/launch/demo_tests.test ARGS use_sim:=true)
+endif()

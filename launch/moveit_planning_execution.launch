@@ -6,18 +6,20 @@
   <arg name="gazebo_port" default="11345"/>
   <arg name="output" default="screen"/>
   <arg name="eef_type" default="cap" />
+  <arg name="gazebo_gui" default="false"/>
 
   <!--  This loads the whole Moveit! setup -->
   <include file="$(find rll_moveit_config)/launch/moveit_planning_execution.launch">
     <arg name="description_file" value="$(find rll_robot_playground_project)/urdf/playground_env.urdf.xacro" />
+    <arg name="semantic_description_file" value="$(find rll_robot_playground_project)/config/playground_cell.srdf.xacro" />
     <arg name="robot_name" value="$(arg robot_name)" />
+    <arg name="eef_type" value="$(arg eef_type)" />
     <arg name="headless" value="$(arg headless)" />
     <arg name="rviz_config" value="$(find rll_robot_playground_project)/launch/moveit.rviz" />
     <arg name="use_sim" value="$(arg use_sim)" />
     <arg name="gazebo_port" value="$(arg gazebo_port)" />
-    <arg name="semantic_description_file" value="$(find rll_robot_playground_project)/config/playground_cell.srdf.xacro" />
+    <arg name="gazebo_gui" value="$(arg gazebo_gui)" />
     <arg name="output" value="$(arg output)"/>
-    <arg name="eef_type" value="cap"/>
   </include>
 
 </launch>

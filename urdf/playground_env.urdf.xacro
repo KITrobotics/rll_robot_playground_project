@@ -14,7 +14,7 @@
   <!-- This ensures that the robot cannot move close to the table -->
 
   <joint name="table_buffer" type="fixed">
-    <parent link="world" />
+    <parent link="table" />
     <child link="table_buffer" />
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
@@ -38,6 +38,5 @@
       </geometry>
     </collision>
   </link>
-
 
 </robot>
